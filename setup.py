@@ -87,7 +87,7 @@ setup(
     author_email='tomkralidis@gmail.com',
     maintainer='Tom Kralidis',
     maintainer_email='tomkraldis@gmail.com',
-    url='https://github.com/wmo-im/pywis-topics',
+    url='https://github.com/World-Meteorological-Organization/pywis-topics',
     install_requires=read('requirements.txt').splitlines(),
     packages=find_packages(),
     include_package_data=True,

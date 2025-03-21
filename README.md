@@ -1,5 +1,5 @@
-[![flake8](https://github.com/wmo-im/pywis-topics/workflows/flake8/badge.svg)](https://github.com/wmo-im/pywis-topics/actions)
-[![main](https://github.com/wmo-im/pywis-topics/workflows/main/badge.svg)](https://github.com/wmo-im/pywis-topics/actions)
+[![flake8](https://github.com/World-Meteorological-Organization/pywis-topics/workflows/flake8/badge.svg)](https://github.com/World-Meteorological-Organization/pywis-topics/actions)
+[![main](https://github.com/World-Meteorological-Organization/pywis-topics/workflows/main/badge.svg)](https://github.com/World-Meteorological-Organization/pywis-topics/actions)
 
 # pywis-topics
 
@@ -33,7 +33,7 @@ cd pywis-topics
 source bin/activate
 
 # clone codebase and install
-git clone https://github.com/wmo-im/pywis-topics.git
+git clone https://github.com/World-Meteorological-Organization/pywis-topics.git
 cd pywis-topics
 python3 setup.py install
 ```
@@ -123,7 +123,7 @@ rm -fr build dist *.egg-info
 python3 setup.py sdist bdist_wheel --universal
 twine upload dist/*
 
-# publish release on GitHub (https://github.com/wmo-im/pywis-topics/releases/new)
+# publish release on GitHub (https://github.com/World-Meteorological-Organization/pywis-topics/releases/new)
 
 # bump version back to dev
 vi pywis_topics/__init__.py  # update __version__
@@ -137,7 +137,7 @@ git push origin main
 
 ### Bugs and Issues
 
-All bugs, enhancements and issues are managed on [GitHub](https://github.com/wmo-im/pywis-topics/issues).
+All bugs, enhancements and issues are managed on [GitHub](https://github.com/World-Meteorological-Organization/pywis-topics/issues).
 
 ## Contact
 
