@@ -35,7 +35,7 @@ source bin/activate
 # clone codebase and install
 git clone https://github.com/World-Meteorological-Organization/pywis-topics.git
 cd pywis-topics
-python3 setup.py install
+pip3 install .
 ```
 
 ## Running
@@ -103,9 +103,6 @@ pip3 install -r requirements-dev.txt
 
 # run tests like this:
 python3 tests/run_tests.py
-
-# or this:
-python3 setup.py test
 ```
 
 ## Releasing

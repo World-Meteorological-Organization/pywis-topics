@@ -7,11 +7,11 @@ jobs:
   flake8_py3:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
+      - uses: actions/checkout@master
+      - uses: actions/setup-python@v6
         name: setup Python
         with:
-          python-version: 3.8
+          python-version: '3.12'
       - name: Checkout pywis-topics
         uses: actions/checkout@master
       - name: Install flake8
