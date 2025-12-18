@@ -1,3 +1,10 @@
+pywis-topics (0.3.6) noble; urgency=medium
+
+  * update to Python 3.12, Ubuntu 24.04
+  * move bundle files only on success
+
+ -- Tom Kralidis <tomkralidis@gmail.com>  Thu, 18 Dec 2025 15:53:24 +0000
+
 pywis-topics (0.3.2) focal; urgency=medium
 
   * fix topic validation
