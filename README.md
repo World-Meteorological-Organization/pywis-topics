@@ -69,11 +69,9 @@ pywis-topics topic validate subscription origin/a/wis2/+/data/core --no-strict
 
 ```bash
 # validate a WIS2 topic hierarchy
-pywis-topics topic validate publication origin/a/wis2/ca-eccc-msc  # fails
+pywis-topics topic validate publication origin/a/wis2/ca-eccc-msc
+pywis-topics topic validate publication origin/a/wis2/ca-eccc-msc/ocean
 pywis-topics topic validate publication origin/a/wis2/us-noaa-nws/data/core/weather/surface-based-observations/synop
-
-# validate a WIS2 topic hierarchy
-pywis-topics topic validate publication origin/a/wis2/ca-eccc-msc  # fails
 # validate a WIS2 topic hierarchy in no-strict mode
 pywis-topics topic validate publication --no-strict origin/a/wis2/fake-centre-id/data/core
 ```
