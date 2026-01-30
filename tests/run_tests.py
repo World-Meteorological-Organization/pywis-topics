@@ -75,10 +75,15 @@ class WIS2TopicHierarchyTest(unittest.TestCase):
         """return to pristine state"""
         pass
 
-    def test_validate(self):
+    def test_validate_subscription(self):
         value = None
         with self.assertRaises(ValueError):
             _ = self.th.validate(value)
+
+        valid_topics = [
+            'cache/a/wis2',
+            'cache/a/wis2/ca-eccc-msc/data/core',
+        ]
 
         invalid_topics = [
             'invalid.topic.hierarchy',
@@ -88,16 +93,11 @@ class WIS2TopicHierarchyTest(unittest.TestCase):
             'a/wis2'
         ]
 
-        valid_topics = [
-            'cache/a/wis2',
-            'cache/a/wis2/ca-eccc-msc/data/core',
-        ]
+        for valid_topic in valid_topics:
+            self.assertTrue(self.th.validate(valid_topic))
 
         for invalid_topic in invalid_topics:
             self.assertFalse(self.th.validate(invalid_topic))
-
-        for valid_topic in valid_topics:
-            self.assertTrue(self.th.validate(valid_topic))
 
         value = 'cache/a/wis2/fake-centre-id/data/core'
         self.assertTrue(self.th.validate(value, strict=False))
@@ -149,6 +149,71 @@ class WIS2TopicHierarchyTest(unittest.TestCase):
         value = 'cache/a/wis2/ca-eccc-msc/data/core/weather/surface-based-observations/#'  # noqa
         self.assertTrue(self.th.validate(value, strict=False))
         self.assertFalse(self.th.validate(value))
+
+    def test_validate_publication(self):
+        value = None
+        with self.assertRaises(ValueError):
+            _ = self.th.validate(value)
+
+        valid_topics = [
+            'origin/a/wis2/kz-kazhydromet/data/core/weather/surface-based-observations/synop',  # noqa
+            'origin/a/wis2/uk-metoffice/data/core/ocean/surface-based-observations/drifting-ocean-profilers',  # noqa
+            'origin/a/wis2/ca-eccc-msc/data/core/ocean/experimental'  # noqa
+        ]
+
+        invalid_topics = [
+            'invalid.topic.hierarchy',
+            'ORIGIN/A/wis2',
+            'origin/a/wis2/ca-é',
+            'invalid/topic/hierarchy',
+            'a/wis2',
+            'cache/a/wis2',
+            'origin/a/wis2/ca-eccc-msc/data/core',
+            'cache/a/wis2/ca-eccc-msc/data/core',
+            'cache/a/wis2/ca-eccc-msc/data/core/weather/surface-based-observations1'  # noqa
+        ]
+
+        for valid_topic in valid_topics:
+            self.assertTrue(self.th.validate(valid_topic, publication=True))
+
+        for invalid_topic in invalid_topics:
+            self.assertFalse(self.th.validate(invalid_topic, publication=True))
+
+        value = 'cache/a/wis2/fake-centre-id/data/core'
+        self.assertFalse(self.th.validate(value, strict=False,
+                         publication=True))
+
+        value = 'cache/a/+'
+        self.assertFalse(self.th.validate(value, strict=False,
+                         publication=True))
+
+        value = 'cache/a/#'
+        self.assertFalse(self.th.validate(value, strict=False,
+                         publication=True))
+
+        value = 'cache/a/wis2/+/data/core/#'
+        self.assertFalse(self.th.validate(value, strict=False,
+                         publication=True))
+
+        value = 'cache/a/wis2/+/data/core/weather/#'
+        self.assertFalse(self.th.validate(value, strict=False,
+                         publication=True))
+
+        value = 'cache/a/wis2/+/data/#/weather'
+        self.assertFalse(self.th.validate(value, publication=True))
+
+        value = 'cache/a/wis2/+/data/core/weather/surface-based-observations'
+        self.assertFalse(self.th.validate(value, strict=False,
+                         publication=True))
+
+        value = 'origin/a/wis2/ca-eccc-msc/data/core/ocean'
+        self.assertTrue(self.th.validate(value, publication=True))
+
+        value = 'cache/a/wis2/ca-eccc-msc/data/core/ocean'
+        self.assertTrue(self.th.validate(value, publication=True))
+
+        value = 'cache/a/wis2/io-wis2dev-11-test/data/core/ocean'
+        self.assertTrue(self.th.validate(value, publication=True))
 
     def test_list_children(self):
         value = None

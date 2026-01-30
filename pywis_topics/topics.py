@@ -125,13 +125,15 @@ class TopicHierarchy:
         return matches
 
     def validate(self, topic_hierarchy: str = None,
-                 strict: bool = True) -> bool:
+                 strict: bool = True, publication: bool = False) -> bool:
         """
         Validates a topic hierarchy
 
         :param topic_hierarchy: `str` of topic hierarchy
         :param strict: `bool` of whether to perform strict validation,
                        including centre-id
+        :param publication: `bool` of whether to perform validation
+                            for publication
 
         :returns: `bool` of whether topic hierarchy is valid
         """
@@ -148,6 +150,27 @@ class TopicHierarchy:
         all_tokens = topic_hierarchy.split('/')
         core_tokens = all_tokens[:6]
         esd_subtopic = '/'.join(all_tokens[6:])
+
+        if publication:
+            if any(c in topic_hierarchy for c in ['#', '+']):
+                msg = 'Invalid characters for publication'
+                LOGGER.warning(msg)
+                return False
+
+            if len(core_tokens) < 5:
+                msg = 'Not enough tokens for publication'
+                LOGGER.warning(msg)
+                return False
+
+            if core_tokens[4] not in ['data', 'metadata']:
+                msg = 'Invalid token for publication (must be data or metadata)'  # noqa
+                LOGGER.warning(msg)
+                return False
+
+            if core_tokens[-2] == 'data':
+                if esd_subtopic in [None, '']:
+                    LOGGER.debug('Earth system discipline subtopic is empty')
+                    return False
 
         LOGGER.debug(f'Core tokens: {core_tokens}')
         LOGGER.debug(f'Earth system discipline subtopic: {esd_subtopic}')
@@ -296,6 +319,12 @@ def topic():
     pass
 
 
+@click.group()
+def validate():
+    """Topic hierarchy validation utilities"""
+    pass
+
+
 @click.command('list')
 @click.pass_context
 @get_cli_common_options
@@ -322,8 +351,8 @@ def list_(ctx, topic_hierarchy, logfile, verbosity):
 @click.option('--strict/--no-strict', default=True,
               help='Validate in strict mode')
 @click.argument('topic-hierarchy')
-def validate(ctx, topic_hierarchy, logfile, verbosity, strict=True):
-    """Validate topic hierarchy"""
+def subscription(ctx, topic_hierarchy, logfile, verbosity, strict=True):
+    """Validate topic hierarchy for subscription"""
 
     setup_logger(verbosity, logfile)
 
@@ -335,5 +364,24 @@ def validate(ctx, topic_hierarchy, logfile, verbosity, strict=True):
         click.echo('Invalid')
 
 
+@click.command()
+@click.pass_context
+@get_cli_common_options
+@click.argument('topic-hierarchy')
+def publication(ctx, topic_hierarchy, logfile, verbosity):
+    """Validate topic hierarchy for publication"""
+
+    setup_logger(verbosity, logfile)
+
+    th = TopicHierarchy()
+
+    if th.validate(topic_hierarchy, publication=True):
+        click.echo('Valid')
+    else:
+        click.echo('Invalid')
+
+
 topic.add_command(list_)
 topic.add_command(validate)
+validate.add_command(subscription)
+validate.add_command(publication)

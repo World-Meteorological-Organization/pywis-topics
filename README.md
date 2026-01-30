@@ -49,20 +49,31 @@ pywis-topics --version
 pywis-topics bundle sync
 ```
 
-### Listing and validation
+### Listing and validating topics for subscription
 
 ```bash
 # validate a WIS2 topic hierarchy
-pywis-topics topic validate origin/a/wis2/ca-eccc-msc
+pywis-topics topic validate subscription origin/a/wis2/ca-eccc-msc
 
 # validate a WIS2 topic hierarchy in no-strict mode
-pywis-topics topic validate --no-strict origin/a/wis2/fake-centre-id/data/core
+pywis-topics topic validate subscription --no-strict origin/a/wis2/fake-centre-id/data/core
 
 # list children of a given WIS2 topic hierarchy level
 pywis-topics topic list wis2/a
 
 # validate a WIS2 topic hierarchy with wildcards (needs no-strict mode)
-pywis-topics topic validate origin/a/wis2/+/data/core --no-strict
+pywis-topics topic validate subscription origin/a/wis2/+/data/core --no-strict
+```
+
+### Validating topics for publication
+
+```bash
+# validate a WIS2 topic hierarchy
+pywis-topics topic validate publication origin/a/wis2/ca-eccc-msc
+pywis-topics topic validate publication origin/a/wis2/ca-eccc-msc/ocean
+pywis-topics topic validate publication origin/a/wis2/us-noaa-nws/data/core/weather/surface-based-observations/synop
+# validate a WIS2 topic hierarchy in no-strict mode
+pywis-topics topic validate publication --no-strict origin/a/wis2/fake-centre-id/data/core
 ```
 
 ### Centre identification validation

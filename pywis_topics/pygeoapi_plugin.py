@@ -138,6 +138,16 @@ PROCESS_VALIDATE_TOPIC = {
     'links': WIS2_TOPIC_HIERARCHY_LINKS,
     'inputs': {
         'topic': WIS2_TOPIC_HIERARCHY_INPUT_TOPIC,
+        'strict': {
+            'type': 'boolean',
+            'default': False,
+            'description': 'Validate in strict mode (default true)'
+        },
+        'publication': {
+            'type': 'boolean',
+            'default': False,
+            'description': 'Topic is publication-based (default false)'
+        }
     },
     'outputs': {
         'result': {
@@ -223,6 +233,8 @@ class WIS2TopicHierarchyValidateTopicProcessor(BaseProcessor):
         response = None
         mimetype = 'application/json'
         topic = data.get('topic')
+        publication = data.get('publication', False)
+        strict = data.get('strict', True)
 
         if topic is None:
             msg = 'Missing topic'
@@ -231,8 +243,11 @@ class WIS2TopicHierarchyValidateTopicProcessor(BaseProcessor):
 
         LOGGER.debug('Querying topic')
         th = TopicHierarchy()
+        topic_is_valid = th.validate(
+            topic, strict=strict, publication=publication)
+
         response = {
-            'topic_is_valid': th.validate(topic)
+            'topic_is_valid': topic_is_valid
         }
         return mimetype, response
 
