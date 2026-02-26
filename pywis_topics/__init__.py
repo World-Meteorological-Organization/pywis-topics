@@ -19,13 +19,14 @@
 #
 ###############################################################################
 
-__version__ = '0.5.dev0'
-
 import click
 
 from pywis_topics.bundle import bundle
 from pywis_topics.centre_id import centre_id
 from pywis_topics.topics import topic
+from pywis_topics.util import get_package_version
+
+__version__ = get_package_version()
 
 
 @click.group()

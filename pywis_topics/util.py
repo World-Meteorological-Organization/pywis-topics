@@ -19,6 +19,7 @@
 #
 ###############################################################################
 
+import importlib.metadata
 import logging
 from pathlib import Path
 import ssl
@@ -77,6 +78,16 @@ def get_cli_common_options(function):
                             type=click.Path(writable=True, dir_okay=False),
                             help='Log file')(function)
     return function
+
+
+def get_package_version() -> str:
+    """
+    Helper function to get package version
+
+    :returns: `str` of version of package
+    """
+
+    return importlib.metadata.version('pywis-topics')
 
 
 def setup_logger(loglevel: str = None, logfile: str = None) -> None:
