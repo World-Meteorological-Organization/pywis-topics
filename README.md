@@ -21,7 +21,7 @@ pip3 install pywis-topics
 - [virtualenv](https://virtualenv.pypa.io)
 
 ### Dependencies
-Dependencies are listed in [requirements.txt](requirements.txt). Dependencies
+Dependencies are listed in [pyproject.toml](pyproject.toml). Dependencies
 are automatically installed during pywis-topics installation.
 
 ### Installing pywis-topics
@@ -109,10 +109,6 @@ cid.validate()
 ### Running Tests
 
 ```bash
-# install dev requirements
-pip3 install -r requirements-dev.txt
-
-# run tests like this:
 python3 tests/run_tests.py
 ```
 
@@ -120,7 +116,7 @@ python3 tests/run_tests.py
 
 ```bash
 # create release (x.y.z is the release version)
-vi pywis_topics/__init__.py  # update __version__
+vi pyproject.toml  # update [project]/version
 git commit -am 'update release version x.y.z'
 git push origin main
 git tag -a x.y.z -m 'tagging release version x.y.z'
@@ -128,13 +124,13 @@ git push --tags
 
 # upload to PyPI
 rm -fr build dist *.egg-info
-python3 setup.py sdist bdist_wheel --universal
+python3 -m build
 twine upload dist/*
 
 # publish release on GitHub (https://github.com/World-Meteorological-Organization/pywis-topics/releases/new)
 
 # bump version back to dev
-vi pywis_topics/__init__.py  # update __version__
+vi pyproject.toml  # update [project]/version
 git commit -am 'back to dev'
 git push origin main
 ```

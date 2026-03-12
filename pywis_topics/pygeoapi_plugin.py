@@ -59,6 +59,7 @@ import logging
 from pygeoapi.process.base import BaseProcessor, ProcessorExecuteError
 
 from pywis_topics.topics import TopicHierarchy
+from pywis_topics.util import get_package_version
 
 LOGGER = logging.getLogger(__name__)
 
@@ -84,7 +85,7 @@ WIS2_TOPIC_HIERARCHY_INPUT_TOPIC = {
 
 
 PROCESS_LIST_TOPICS = {
-    'version': '0.1.0',
+    'version': get_package_version(),
     'id': 'pywis-topics-list',
     'title': {
         'en': 'List WIS2 topics'
@@ -126,7 +127,7 @@ PROCESS_LIST_TOPICS = {
 
 
 PROCESS_VALIDATE_TOPIC = {
-    'version': '0.1.0',
+    'version': get_package_version(),
     'id': 'pywis-topics-validate',
     'title': {
         'en': 'Validate WIS2 topics'
