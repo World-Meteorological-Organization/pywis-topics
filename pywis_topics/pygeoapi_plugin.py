@@ -95,6 +95,7 @@ PROCESS_LIST_TOPICS = {
     },
     'keywords': ['wis2', 'topics', 'metadata'],
     'links': WIS2_TOPIC_HIERARCHY_LINKS,
+    'jobControlOptions': ['sync-execute', 'async-execute'],
     'inputs': {
         'topic': WIS2_TOPIC_HIERARCHY_INPUT_TOPIC,
     },
@@ -137,6 +138,7 @@ PROCESS_VALIDATE_TOPIC = {
     },
     'keywords': ['wis2', 'topics', 'metadata'],
     'links': WIS2_TOPIC_HIERARCHY_LINKS,
+    'jobControlOptions': ['sync-execute', 'async-execute'],
     'inputs': {
         'topic': WIS2_TOPIC_HIERARCHY_INPUT_TOPIC,
         'strict': {
