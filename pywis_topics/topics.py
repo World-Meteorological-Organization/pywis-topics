@@ -172,6 +172,10 @@ class TopicHierarchy:
                     LOGGER.debug('Earth system discipline subtopic is empty')
                     return False
 
+            if core_tokens[4] == 'metadata' and len(all_tokens) > 5:
+                LOGGER.debug('Metadata cannot include subtopics')
+                return False
+
         LOGGER.debug(f'Core tokens: {core_tokens}')
         LOGGER.debug(f'Earth system discipline subtopic: {esd_subtopic}')
         LOGGER.debug('Validating core tokens')
