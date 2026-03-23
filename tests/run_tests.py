@@ -170,7 +170,8 @@ class WIS2TopicHierarchyTest(unittest.TestCase):
             'cache/a/wis2',
             'origin/a/wis2/ca-eccc-msc/data/core',
             'cache/a/wis2/ca-eccc-msc/data/core',
-            'cache/a/wis2/ca-eccc-msc/data/core/weather/surface-based-observations1'  # noqa
+            'cache/a/wis2/ca-eccc-msc/data/core/weather/surface-based-observations1',  # noqa
+            'origin/a/wis2/sa-ncm/metadata/core/weather/surface-based-observations/temp'  # noqa
         ]
 
         for valid_topic in valid_topics:
